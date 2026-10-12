@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Happy Birthday Anahita 🎉</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg1:#ECE0FB; --bg2:#FDE2EC; --bg3:#FFE8D4;
+    --purple:#8B5CF6; --purple-deep:#6D28D9;
+    --pink:#EC4899; --pink-deep:#DB2777;
+    --yellow:#FBBF24; --mint:#34D399; --sky:#38BDF8;
+    --ink:#3B2A4A; --white:#fff;
+    --shadow:0 18px 44px -18px rgba(76,29,116,.45);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+  html,body{ height:100%; }
+  body{
+    font-family:'Nunito',system-ui,sans-serif; color:var(--ink);
+    background:linear-gradient(155deg,var(--bg1) 0%, var(--bg2) 52%, var(--bg3) 100%);
+    min-height:100dvh; overflow-x:hidden; position:relative;
+  }
+  /* party glow blobs */
+  .blob{ position:fixed; border-radius:50%; filter:blur(70px); opacity:.5; z-index:0; pointer-events:none; }
+  .blob.b1{ width:320px; height:320px; background:var(--purple); top:-80px; left:-80px; }
+  .blob.b2{ width:300px; height:300px; background:var(--pink); bottom:-100px; right:-70px; }
+  .blob.b3{ width:220px; height:220px; background:var(--yellow); top:40%; right:-90px; opacity:.4; }
+
+  .scene{
+    position:fixed; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center;
+    padding:26px 20px calc(26px + env(safe-area-inset-bottom));
+    opacity:0; visibility:hidden; transform:translateY(20px) scale(.98);
+    transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1), visibility .7s;
+    z-index:3;
+  }
+  .scene.active{ opacity:1; visibility:visible; transform:none; }
+  h1,h2{ font-family:'Fredoka',sans-serif; font-weight:700; line-height:1.05; }
+
+  .btn{
+    font-family:'Nunito',sans-serif; font-weight:800; font-size:1.05rem; color:#fff;
+    background:linear-gradient(135deg,var(--purple),var(--purple-deep));
+    border:none; border-radius:999px; padding:15px 32px; cursor:pointer;
+    box-shadow:var(--shadow); transition:transform .22s ease; min-height:52px;
+  }
+  .btn:active{ transform:scale(.96); }
+  .btn.pink{ background:linear-gradient(135deg,var(--pink),var(--pink-deep)); }
+  .btn.yellow{ background:linear-gradient(135deg,#FCD34D,var(--yellow)); color:#4a2e00; }
+
+  /* ===== SCENE 1: gift ===== */
+  #welcome{ cursor:pointer; }
+  .gift{ width:156px; height:156px; animation:bob 2.3s ease-in-out infinite; filter:drop-shadow(0 16px 20px rgba(76,29,116,.28)); }
+  @keyframes bob{ 0%,100%{transform:translateY(0) rotate(-2.5deg)} 50%{transform:translateY(-13px) rotate(2.5deg)} }
+  .tap-hint{ margin-top:26px; font-size:.9rem; letter-spacing:3px; text-transform:uppercase; color:var(--purple-deep); font-weight:700; opacity:.75; animation:pulse 2.1s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:.35} 50%{opacity:1} }
+  #welcome .pre{ font-family:'Fredoka',sans-serif; font-weight:600; font-size:clamp(1.1rem,5.5vw,1.5rem); color:var(--pink-deep); margin-bottom:20px; }
+
+  /* ===== SCENE 2: birthday ===== */
+  .bday-title{ font-size:clamp(2.3rem,12vw,4.2rem); color:var(--purple-deep); letter-spacing:-.5px; }
+  .bday-title .nm{ background:linear-gradient(110deg,var(--pink),var(--yellow)); -webkit-background-clip:text; background-clip:text; color:transparent; cursor:pointer; display:inline-block; }
+  .bday-sub{ font-family:'Fredoka',sans-serif; font-weight:500; font-size:clamp(1.05rem,4.6vw,1.4rem); color:var(--pink-deep); margin:8px 0 10px; }
+  .candle-hint{ font-size:.95rem; font-weight:700; color:var(--purple-deep); min-height:1.3em; margin-bottom:4px; transition:opacity .3s; }
+
+  .cake-wrap{ margin:4px 0 16px; }
+  .candles{ display:flex; gap:17px; justify-content:center; align-items:flex-end; margin-bottom:-6px; position:relative; z-index:4; }
+  .candle{ position:relative; width:10px; cursor:pointer; padding:16px 11px 0; }
+  .candle .stick{ width:10px; height:34px; border-radius:3px; background:repeating-linear-gradient(45deg,var(--pink) 0 6px,#fff 6px 12px); margin:0 auto; box-shadow:0 2px 4px rgba(0,0,0,.12); }
+  .flame{ position:absolute; top:-2px; left:50%; width:14px; height:20px; transform:translateX(-50%); background:radial-gradient(circle at 50% 70%, #fff 0%, #FFD24A 35%, #FF8A00 75%, transparent 78%); border-radius:50% 50% 50% 50%/60% 60% 40% 40%; transform-origin:center bottom; animation:flicker .22s ease-in-out infinite alternate; box-shadow:0 0 16px 5px rgba(255,170,0,.55); }
+  @keyframes flicker{ from{ transform:translateX(-50%) scale(1) rotate(-3deg);} to{ transform:translateX(-52%) scale(1.08,1.12) rotate(3deg);} }
+  .candle.out .flame{ display:none; }
+  .smoke{ position:absolute; top:-6px; left:50%; width:5px; height:5px; border-radius:50%; background:rgba(120,120,120,.5); opacity:0; transform:translateX(-50%); animation:smoke 1.4s ease-out forwards; }
+  @keyframes smoke{ 0%{opacity:.6; transform:translate(-50%,0) scale(1)} 100%{opacity:0; transform:translate(-50%,-34px) scale(2.4)} }
+  .cake{ width:min(264px,76vw); margin:0 auto; cursor:pointer; }
+
+  #letterBtn{ opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .6s ease, transform .6s ease; }
+  #letterBtn.show{ opacity:1; pointer-events:auto; transform:none; }
+
+  /* ===== SCENE 3: letter ===== */
+  #letterScene{ justify-content:flex-start; overflow-y:auto; padding-top:calc(26px + env(safe-area-inset-top)); -webkit-overflow-scrolling:touch; }
+  .letter-card{
+    background:linear-gradient(180deg,#fff,#FFF7FB);
+    border:1px solid rgba(139,92,246,.28); border-radius:24px;
+    box-shadow:var(--shadow); width:min(600px,94vw); margin:14px auto 18px;
+    padding:30px clamp(20px,6vw,40px); position:relative;
+  }
+  .letter-card::before{ content:"🎈"; position:absolute; top:-18px; left:50%; transform:translateX(-50%); font-size:2rem; filter:drop-shadow(0 4px 6px rgba(0,0,0,.12)); }
+  .letter-title{ font-family:'Vazirmatn',sans-serif; font-weight:700; font-size:clamp(1.4rem,6.5vw,2rem); text-align:center; line-height:1.7; color:var(--pink-deep); margin-bottom:22px; }
+  .letter-body p{ direction:rtl; font-family:'Vazirmatn',sans-serif; font-weight:400; font-size:clamp(1rem,4.3vw,1.14rem); line-height:2.3; text-align:right; margin-bottom:18px; color:#3a2b4a; }
+  .letter-body p.center{ text-align:center; font-weight:500; }
+  .eggline{ text-align:center; margin:2px auto 26px; font-size:1.6rem; cursor:pointer; user-select:none; opacity:.85; transition:transform .2s; }
+  .eggline:active{ transform:scale(1.3); }
+  .back{ display:inline-block; margin:2px auto 30px; }
+
+  /* ===== decorations ===== */
+  #confettiLayer,#balloons{ position:fixed; inset:0; pointer-events:none; overflow:hidden; }
+  #confettiLayer{ z-index:1; } #balloons{ z-index:2; }
+  .cfall{ position:absolute; top:-30px; width:11px; height:16px; border-radius:2px; will-change:transform; }
+  @keyframes cfall{ 0%{transform:translateY(-12vh) rotate(0);opacity:0} 10%{opacity:1} 100%{transform:translateY(116vh) translateX(var(--drift,30px)) rotate(720deg);opacity:.95} }
+  .balloon{ position:absolute; bottom:-140px; width:50px; will-change:transform; pointer-events:auto; cursor:pointer; }
+  @keyframes rise{ 0%{transform:translateY(0) translateX(0);opacity:0} 10%{opacity:.95} 100%{transform:translateY(-128vh) translateX(var(--sway,30px));opacity:.95} }
+  .pop{ position:fixed; z-index:60; pointer-events:none; }
+
+  #muteBtn{ position:fixed; top:calc(12px + env(safe-area-inset-top)); right:12px; z-index:50; width:46px; height:46px; border-radius:50%; border:1px solid rgba(139,92,246,.3); background:rgba(255,255,255,.85); backdrop-filter:blur(6px); cursor:pointer; font-size:1.15rem; box-shadow:var(--shadow); }
+  #starEgg{ position:fixed; bottom:14px; left:14px; z-index:50; width:40px; height:40px; border:none; background:transparent; cursor:pointer; font-size:1.5rem; opacity:.55; transition:transform .3s, opacity .3s; }
+  #starEgg:hover,#starEgg:active{ opacity:1; transform:rotate(18deg) scale(1.2); }
+
+  .toast{ position:fixed; bottom:72px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--ink); color:#fff; padding:12px 22px; border-radius:999px; font-size:1rem; font-weight:700; z-index:70; opacity:0; transition:all .4s ease; pointer-events:none; box-shadow:var(--shadow); max-width:90vw; }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  .toast.fa{ direction:rtl; font-family:'Vazirmatn',sans-serif; }
+
+  @media (prefers-reduced-motion:reduce){ *{animation-duration:.4s !important} .cfall,.balloon{display:none} }
+</style>
+</head>
+<body>
+
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div id="confettiLayer"></div>
+<div id="balloons"></div>
+<button id="muteBtn" aria-label="music on/off" title="music on/off">🔊</button>
+<button id="starEgg" aria-label="secret" title="pssst…">⭐</button>
+
+<!-- ===== SCENE 1 ===== -->
+<section class="scene active" id="welcome">
+  <p class="pre">a little surprise for you 🎁</p>
+  <svg class="gift" viewBox="0 0 120 120" aria-hidden="true">
+    <rect x="22" y="50" width="76" height="58" rx="7" fill="#8B5CF6"/>
+    <rect x="22" y="50" width="76" height="16" rx="5" fill="#6D28D9"/>
+    <rect x="53" y="38" width="14" height="70" fill="#FBBF24"/>
+    <rect x="22" y="58" width="76" height="8" fill="#FCD34D"/>
+    <path d="M60 40 C40 20 24 40 60 44 C96 40 80 20 60 40 Z" fill="#EC4899"/>
+    <circle cx="60" cy="42" r="5.5" fill="#DB2777"/>
+  </svg>
+  <p class="tap-hint">tap to open</p>
+</section>
+
+<!-- ===== SCENE 2 ===== -->
+<section class="scene" id="birthday">
+  <h1 class="bday-title">Happy Birthday,<br><span class="nm" id="nameEgg">Anahita!</span> 🎉</h1>
+  <p class="bday-sub">make a wish &amp; blow out the candles ✨</p>
+  <p class="candle-hint" id="candleHint">tap each candle to blow it out 🌬️</p>
+  <div class="cake-wrap">
+    <div class="candles" id="candles"></div>
+    <svg class="cake" id="cake" viewBox="0 0 260 150" aria-hidden="true">
+      <ellipse cx="130" cy="140" rx="104" ry="9" fill="rgba(76,29,116,.14)"/>
+      <rect x="30" y="92" width="200" height="44" rx="12" fill="#EC4899"/>
+      <path d="M30 104 q22 16 40 0 t40 0 t40 0 t40 0 t40 0 v24 a12 12 0 0 1-12 12 H42 a12 12 0 0 1-12-12 Z" fill="#fff" opacity=".9"/>
+      <rect x="44" y="66" width="172" height="34" rx="11" fill="#A78BFA"/>
+      <path d="M44 76 q20 14 36 0 t36 0 t36 0 t36 0 v14 a11 11 0 0 1-11 11 H55 a11 11 0 0 1-11-11 Z" fill="#fff" opacity=".85"/>
+      <circle cx="74" cy="118" r="4" fill="#FBBF24"/><circle cx="130" cy="122" r="4" fill="#34D399"/><circle cx="186" cy="118" r="4" fill="#38BDF8"/>
+    </svg>
+  </div>
+  <button class="btn pink" id="letterBtn">I wrote you something 💌</button>
+</section>
+
+<!-- ===== SCENE 3: LETTER (Persian only) ===== -->
+<section class="scene" id="letterScene">
+  <div class="letter-card">
+    <h2 class="letter-title">اناهیتا جانم، تولدت مبارکککک ❤️🥹🎂</h2>
+    <div class="letter-body">
+      <p>راستش نمی‌دونم از کجا شروع کنم، چون وقتی می‌خوام برای تو چیزی بنویسم، همیشه یه عالمه حرف توی ذهنمه که نمی‌دونم چطوری باید بیانشون کنم.</p>
+      <p>اول از همه امیدوارم امسال برات سالی باشه که خیلی بیشتر از قبل بخندی، چیزایی که دلت می‌خواد برات اتفاق بیفتن و یه عالمه خاطره قشنگ بسازی. امیدوارم به چیزایی که براشون تلاش می‌کنی برسی و حتی روزایی که همه‌چی اون‌جوری که می‌خوای پیش نمی‌ره، بازم یه چیزی پیدا بشه که حالت رو خوب کنه. ❤️</p>
+      <p>یه چیزی که واقعاً برام مهمه اینه که امیدوارم همیشه خودت باشی؛ همون‌جوری که هستی، با همه‌ی اخلاقای خوب و بدت، با خنده‌هات، حرف زدنت و حتی اون وقتایی که یه‌کم غیرقابل‌پیش‌بینی می‌شی 😂❤️</p>
+      <p>خوشحالم که توی این مدت شناختمت و یه عالمه لحظه و خاطره دارم که شاید برای بقیه چیز خاصی نباشن، ولی برای من قشنگن. بعضی آدما بدون اینکه خودشون بدونن، با یه حرف ساده، یه خنده یا حتی یه دیدار معمولی، روز آدم رو عوض می‌کنن. تو هم از اون آدمایی هستی که حضورت می‌تونه یه روز معمولی رو تبدیل به یه خاطره‌ی خوب کنه. شاید خودت خیلی متوجهش نباشی، ولی این چیزیه که من توی تو دیدم. ❤️</p>
+      <p>امیدوارم امسال بیشتر به خودت سخت نگیری، بیشتر برای چیزایی که خوشحالت می‌کنن وقت بذاری و کمتر نگران چیزایی باشی که هنوز اتفاق نیفتادن. امیدوارم آدمایی دور و برت باشن که کنارشون بتونی راحت باشی، از ته دل بخندی و بدون هیچ نگرانی‌ای حرف بزنی. آدمایی که نه فقط توی روزای خوب، بلکه وقتی خسته‌ای و حوصله‌ی هیچ‌چیزی رو نداری هم کنارت باشن.</p>
+      <p>نمی‌دونم سال جدید زندگیت قراره چه چیزایی با خودش بیاره، ولی امیدوارم وقتی سال بعد به امروز نگاه می‌کنی، با خودت بگی: «چه سال قشنگی بود!» امیدوارم کلی جاهای جدید بری، چیزای جدید تجربه کنی، به خودت افتخار کنی و دلیل‌های زیادی برای خوشحال بودن داشته باشی. 🥹❤️</p>
+      <p>و در آخر، می‌خوام بدونی که واقعاً برام مهمی و از ته دلم برات بهترین‌ها رو می‌خوام. نه فقط امروز که تولدته، بلکه توی روزای معمولی سال هم. امیدوارم زندگی باهات مهربون باشه و هرچیزی که قراره وارد زندگیت بشه، یه دلیل تازه برای لبخند زدنت باشه.</p>
+      <p class="center">تولدت مبارک، اناهیتا جانم. ❤️🎂</p>
+      <p>امیدوارم امسال همون‌قدر که تو برای آدمای اطرافت خاطره‌های قشنگ می‌سازی، خودت هم پر از خاطره‌های قشنگ بشی. دوست دارم همیشه بخندی و دلت خوش باشه. 🫶🏻❤️</p>
+    </div>
+    <div class="eggline" id="heartEgg" title="…">🎂</div>
+  </div>
+  <button class="btn yellow back" id="againBtn">🎈 play it again</button>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+  const $=s=>document.querySelector(s);
+  const scenes={ welcome:$("#welcome"), birthday:$("#birthday"), letter:$("#letterScene") };
+  function go(n){ Object.values(scenes).forEach(s=>s.classList.remove("active")); scenes[n].classList.add("active"); if(n==="letter") scenes.letter.scrollTop=0; }
+  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const PALETTE=["#8B5CF6","#EC4899","#FBBF24","#34D399","#38BDF8","#F472B6"];
+
+  /* ---- toast ---- */
+  const toast=$("#toast"); let toastT;
+  function showToast(msg,fa){ toast.textContent=msg; toast.classList.toggle("fa",!!fa); toast.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>toast.classList.remove("show"),3200); }
+
+  /* ---- falling confetti ---- */
+  const cl=$("#confettiLayer");
+  function spawnConfetti(){ if(reduce) return; const el=document.createElement("div"); el.className="cfall"; el.style.left=Math.random()*100+"vw"; el.style.background=PALETTE[Math.floor(Math.random()*PALETTE.length)]; el.style.setProperty("--drift",(Math.random()*120-60)+"px"); if(Math.random()<.4) el.style.borderRadius="50%"; const d=6+Math.random()*6; el.style.animation=`cfall ${d}s linear forwards`; cl.appendChild(el); setTimeout(()=>el.remove(),d*1000+600); }
+  setInterval(spawnConfetti,420); for(let i=0;i<10;i++) setTimeout(spawnConfetti,i*120);
+
+  /* ---- balloons (poppable easter egg) ---- */
+  const bl=$("#balloons"); let popCount=0;
+  const popMsgs=["🎈 pop!","🎉 nice shot!","one wish per balloon 🌟","🎈 boop!","🥳 pop pop!"];
+  function balloonSVG(c){ return `<svg viewBox="0 0 50 70" width="50" height="70"><ellipse cx="25" cy="26" rx="22" ry="26" fill="${c}"/><ellipse cx="17" cy="17" rx="6" ry="9" fill="#fff" opacity=".4"/><polygon points="20,50 30,50 25,57" fill="${c}"/><path d="M25 57 q7 11 -2 14" stroke="rgba(0,0,0,.22)" stroke-width="1.3" fill="none"/></svg>`; }
+  function spawnBalloon(){ if(reduce) return; const el=document.createElement("div"); el.className="balloon"; el.style.left=(5+Math.random()*88)+"vw"; el.style.setProperty("--sway",(Math.random()*80-40)+"px"); const d=10+Math.random()*6; el.style.animation=`rise ${d}s linear forwards`; const c=PALETTE[Math.floor(Math.random()*PALETTE.length)]; el.innerHTML=balloonSVG(c); const to=setTimeout(()=>el.remove(),d*1000+600); el.addEventListener("click",ev=>{ ev.stopPropagation(); const r=el.getBoundingClientRect(); burst(r.left+r.width/2,r.top+r.height/2,22); pop(); clearTimeout(to); el.remove(); popCount++; if(popCount%3===0) showToast(popMsgs[Math.floor(Math.random()*popMsgs.length)]); }); bl.appendChild(el); }
+  setInterval(()=>{ if(scenes.welcome.classList.contains("active")) return; spawnBalloon(); }, 2600);
+
+  /* ---- confetti burst ---- */
+  function burst(x,y,n){ if(reduce) return; n=n||32; for(let i=0;i<n;i++){ const el=document.createElement("div"); el.className="pop"; const c=PALETTE[Math.floor(Math.random()*PALETTE.length)]; el.style.width=(7+Math.random()*7)+"px"; el.style.height=(10+Math.random()*9)+"px"; el.style.background=c; el.style.borderRadius=Math.random()<.4?"50%":"2px"; el.style.left=x+"px"; el.style.top=y+"px"; document.body.appendChild(el); const a=Math.random()*Math.PI*2, dist=100+Math.random()*240; const dx=Math.cos(a)*dist, dy=Math.sin(a)*dist-90; el.animate([{transform:"translate(0,0) rotate(0)",opacity:1},{transform:`translate(${dx}px,${dy+340}px) rotate(${Math.random()*720}deg)`,opacity:0}],{duration:1500+Math.random()*800,easing:"cubic-bezier(.2,.7,.3,1)"}); setTimeout(()=>el.remove(),2500); } }
+
+  /* ================= MUSIC: real "Happy Birthday" melody (public domain) ================= */
+  let actx,master,melodyOn=false,melodyTimer,muted=false;
+  const beat=0.5;
+  // [frequency, beats]  — G4 A4 B4 C5 D5 E5 F5 G5
+  const G4=392.00,A4=440.00,B4=493.88,C5=523.25,D5=587.33,E5=659.25,F5=698.46,G5=783.99;
+  const HB=[
+    [G4,.75],[G4,.25],[A4,1],[G4,1],[C5,1],[B4,2],
+    [G4,.75],[G4,.25],[A4,1],[G4,1],[D5,1],[C5,2],
+    [G4,.75],[G4,.25],[G5,1],[E5,1],[C5,1],[B4,1],[A4,2],
+    [F5,.75],[F5,.25],[E5,1],[C5,1],[D5,1],[C5,2]
+  ];
+  function initA(){ if(actx) return; const AC=window.AudioContext||window.webkitAudioContext; if(!AC) return; actx=new AC(); master=actx.createGain(); master.gain.value=0.12; master.connect(actx.destination); }
+  function noteAt(f,start,dur){
+    const o=actx.createOscillator(), o2=actx.createOscillator(), g=actx.createGain();
+    o.type="triangle"; o2.type="sine"; o.frequency.value=f; o2.frequency.value=f*2; o2.detune.value=4;
+    const g2=actx.createGain(); g2.gain.value=.35; o2.connect(g2); g2.connect(g);
+    g.gain.setValueAtTime(0.0001,start);
+    g.gain.linearRampToValueAtTime(0.9,start+0.03);
+    g.gain.exponentialRampToValueAtTime(0.25,start+Math.min(dur*0.6,0.5));
+    g.gain.exponentialRampToValueAtTime(0.0001,start+dur*0.98);
+    o.connect(g); g.connect(master);
+    o.start(start); o.stop(start+dur); o2.start(start); o2.stop(start+dur);
+  }
+  function playMelody(){
+    if(!actx||muted||!melodyOn) return;
+    let t=actx.currentTime+0.15;
+    HB.forEach(([f,b])=>{ noteAt(f,t,b*beat*0.96); t+=b*beat; });
+    const total=t-actx.currentTime;
+    melodyTimer=setTimeout(()=>{ if(melodyOn&&!muted) playMelody(); }, (total+1.6)*1000);
+  }
+  function startM(){ initA(); if(!actx||muted) return; if(actx.state==="suspended") actx.resume(); if(melodyOn) return; melodyOn=true; playMelody(); }
+  function stopM(){ melodyOn=false; clearTimeout(melodyTimer); }
+  const muteBtn=$("#muteBtn");
+  muteBtn.addEventListener("click",()=>{ muted=!muted; muteBtn.textContent=muted?"🔇":"🔊"; if(muted) stopM(); else startM(); });
+  function chime(){ if(!actx||muted) return; const t=actx.currentTime; [E5,G5,C5*2].forEach((f,i)=>noteAt(f,t+i*0.09,0.4)); }
+
+  /* ===== SCENE 1 ===== */
+  const welcome=$("#welcome");
+  welcome.addEventListener("click",e=>{
+    startM();
+    burst((e.clientX||innerWidth/2),(e.clientY||innerHeight/2),46);
+    for(let i=0;i<7;i++) setTimeout(spawnBalloon,i*150);
+    setTimeout(()=>go("birthday"),520);
+  });
+
+  /* ===== SCENE 2: candles ===== */
+  const candlesEl=$("#candles"), hint=$("#candleHint"), letterBtn=$("#letterBtn");
+  const N=5; let lit=N, wished=false;
+  for(let i=0;i<N;i++){
+    const c=document.createElement("div"); c.className="candle";
+    c.innerHTML='<span class="flame"></span><span class="stick"></span>';
+    c.addEventListener("click",()=>{
+      if(c.classList.contains("out")) return;
+      c.classList.add("out");
+      const s=document.createElement("span"); s.className="smoke"; c.appendChild(s); setTimeout(()=>s.remove(),1400);
+      lit--; chime();
+      if(lit>0){ hint.textContent=lit+" to go… 🌬️"; }
+      else {
+        wished=true; hint.textContent="✨ make a wish, Anahita ✨"; hint.style.opacity=".95";
+        const r=candlesEl.getBoundingClientRect(); burst(r.left+r.width/2,r.top,64);
+        for(let k=0;k<12;k++) setTimeout(spawnBalloon,k*110);
+        setTimeout(()=>letterBtn.classList.add("show"),500);
+      }
+    });
+    candlesEl.appendChild(c);
+  }
+  letterBtn.addEventListener("click",()=>go("letter"));
+
+  /* ===== EASTER EGGS ===== */
+  // 1) tap her name -> confetti + sweet toast
+  const nameMsgs=["the birthday star ⭐","yes, you! 🥳","🎉 happy YOU day","shining today 💫"];
+  $("#nameEgg").addEventListener("click",e=>{ e.stopPropagation(); const r=e.target.getBoundingClientRect(); burst(r.left+r.width/2,r.top+r.height/2,30); showToast(nameMsgs[Math.floor(Math.random()*nameMsgs.length)]); });
+  // 2) tap the cake (after the wish) -> share a slice
+  $("#cake").addEventListener("click",e=>{ const r=$("#cake").getBoundingClientRect(); burst(r.left+r.width/2,r.top+10,24); showToast(wished?"🍰 save me a slice?":"patience… candles first 🌬️"); });
+  // 3) corner star -> cycles cute messages (EN + Persian)
+  const starMsgs=[
+    {t:"خوشگل‌ترین متولد امروز 😄",fa:true},
+    {t:"انقدر به کونم دست نزنننن💀😭",fa:true},
+    {t:"ایشالا سال دیگه این موقع تو WU 👀🌚",fa:true},
+    {t:"موشتبی قطعش کوووو🗿",fa:true},
+    {t:"خب دیگه تموم شد دنبال چی هستی؟",fa:true},
+    {t:"بسه بابا چیزی دیگه پیدا نمیکنی",fa:true},
+    {t:"شل کن جدی",fa:true},
+    {t:"حالا تا فردا صبح کیلیک کن رو این",fa:true},
+    {t:"کصخلی؟",fa:true},
+    {t:"حالا که تا اینجا اومدی",fa:true},
+    {t:"باشه…",fa:true},
+    {t:"تو بردی😔",fa:true},
+    {t:"دوستت دارمممممم❤️",fa:true}
+  ];
+  let si=0;
+  $("#starEgg").addEventListener("click",e=>{ const m=starMsgs[si%starMsgs.length]; si++; showToast(m.t,m.fa); burst(e.clientX,e.clientY,18); });
+  // 4) tap the 🎂 at the end of the letter -> heart rain
+  $("#heartEgg").addEventListener("click",e=>{
+    showToast("🎈🎈🎈",false);
+    for(let i=0;i<24;i++){ setTimeout(()=>{ const el=document.createElement("div"); el.className="pop"; el.textContent=["❤️","🎈","🎉","⭐","🥳"][Math.floor(Math.random()*5)]; el.style.fontSize=(16+Math.random()*16)+"px"; el.style.left=(Math.random()*innerWidth)+"px"; el.style.top="-30px"; document.body.appendChild(el); el.animate([{transform:"translateY(0)",opacity:1},{transform:`translateY(${innerHeight+60}px)`,opacity:.9}],{duration:2600+Math.random()*1200,easing:"linear"}); setTimeout(()=>el.remove(),3900); }, i*70); }
+  });
+
+  /* ===== SCENE 3 replay ===== */
+  $("#againBtn").addEventListener("click",()=>{
+    lit=N; wished=false; hint.textContent="tap each candle to blow it out 🌬️"; hint.style.opacity="";
+    document.querySelectorAll(".candle").forEach(c=>c.classList.remove("out"));
+    letterBtn.classList.remove("show");
+    go("birthday");
+  });
+})();
+</script>
+</body>
+</html>
